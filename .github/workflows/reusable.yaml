@@ -1,0 +1,23 @@
+# This is a basic workflow to showcase the use of Reusable workflows.
+
+name: Reusable workflow user
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  do-it:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
+  docker:
+    uses: Nmnaren/skills-test-with-actions/.github/workflows/docker.yaml@main
+    with:
+      image_name: my-awesome-app
+      tag: $GITHUB_RUN_NUMBER
+    secrets:
+      username: ${{ secrets.dockerusername }}
+      password: ${{ secrets.dockerpassword }}
